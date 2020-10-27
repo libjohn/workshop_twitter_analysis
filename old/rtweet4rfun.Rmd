@@ -163,35 +163,12 @@ word_ratios %>%
   scale_fill_discrete(name = "", labels = c("CCBCent1", "Adam_Bradford14"))
 ```
 
+## Favorites and retweets
 
-## Text Mining -- Data Treamtement 
-```{r tidyTheText}
-
-# make lower case
-corpus.prep <- tm_map(dfCorpus, str_to_lower)  # stringr::str_to_lower() instead of base::tolower
-
-# remove white space
-corpus.prep <- tm_map(corpus.prep, stripWhitespace) 
-
-# remove punctuation 
-corpus.prep <- tm_map(corpus.prep, removePunctuation)
-
-# remove numbers
-corpus.prep <- tm_map(corpus.prep, removeNumbers) 
-
-# head(stopwords("english"))
-
-# remove stop words 
-corpus <- tm_map(corpus.prep, removeWords, stopwords("english")) 
-# docs <- tm_map(docs, removeWords, c("department", "email"))   
-
-# stem remaining words
-corpus <- tm_map(corpus, stemDocument)  # snowballC::StemDocument() 
-
-```
+## Changes in word use
 
 
-## Make Term Document Matrix
+## Term Document Matrix
 ```{r}
 # dtm <- DocumentTermMatrix(docs) 
 
