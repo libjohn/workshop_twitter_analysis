@@ -1,0 +1,137 @@
+---
+title: "gather with rtweet"
+output: html_notebook
+---
+
+
+```{r}
+library(tidyverse)
+library(rtweet)
+```
+
+
+## Search tweets
+
+`search_tweets`
+
+- @nprmusic
+- #tinydesk
+- @RhiannonGiddens  [porgy & bess]
+
+```
+{r}
+bts <- search_tweets("#BTS", n = 5000, include_rts = FALSE)
+
+bts_dynamite <- search_tweets("#BTS dynamite", n = 5000, include_rts = FALSE)
+```
+
+```{r}
+bts
+bts_dynamite
+```
+
+## get friends
+
+@john_little
+
+```{r}
+john_little <-  get_friends("john_little")
+```
+
+
+```{r}
+john_little
+```
+
+```{r}
+john_little_data <- lookup_users(john_little$user_id)
+```
+
+```{r}
+john_little_data
+```
+
+## get followers
+
+```{r}
+jrl_flw <- get_followers("john_little")
+```
+
+
+```{r}
+jrl_flw_data <- lookup_users(jrl_flw$user_id)
+```
+
+
+```{r}
+jrl_flw_data 
+```
+
+## timelines
+
+```{r}
+rg_tmls <- get_timelines("RhiannonGiddens", n = 3200)
+```
+
+
+min(created_at)     | max(created_at)
+------------------- | ---
+2015-04-21 13:59:55 |	2020-10-27 20:49:18	
+
+```{r warning=FALSE}
+rg_tmls %>% 
+  dplyr::filter(created_at > "2016-01-01") %>%  
+  dplyr::group_by(screen_name) %>%
+  ts_plot("weeks", trim = 1L) +
+  ggplot2::geom_point() +
+  geom_smooth(se = FALSE, color = "cadetblue") +
+  colorblindr::scale_color_OkabeIto() +
+  hrbrthemes::theme_ipsum(grid = "Y") +
+  ggplot2::theme(
+    legend.title = ggplot2::element_blank(),
+    legend.position = "bottom", 
+    plot.title = ggplot2::element_text(face = "bold")
+    ) +
+    ggplot2::labs(
+    x = NULL, y = NULL,
+    title = "Frequency of Twitter statuses",
+    subtitle = "Twitter status (tweet) counts aggregated by week from Jan. 2016",
+    caption = "Source: Data collected from Twitter's REST API via rtweet"
+  )
+
+
+```
+
+## get_favorites
+
+```{r}
+rg_faves <- get_favorites("RhiannonGiddens", n = 3000)
+```
+
+```{r}
+rg_faves
+```
+
+## search users
+
+```{r}
+gullah <- search_users("#gullah", n = 1000)
+```
+
+
+```{r}
+gullah
+```
+
+## get trends
+
+```{r}
+# sf <- get_trends("san franciso")
+# durham <- get_trends(lat = 36.0, lng = -78.9)
+greensboro <- get_trends("greensboro")
+```
+
+```{r}
+greensboro
+```
+

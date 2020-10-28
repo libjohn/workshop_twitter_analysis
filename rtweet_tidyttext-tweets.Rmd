@@ -1,0 +1,213 @@
+---
+title: "Rtweet"
+subtitle: "an Rfun demonstration"
+author: "John Little"
+date: '`r Sys.Date()`'
+output: html_notebook
+---
+
+## load libraries
+
+```{r libraries, warning=FALSE}
+library(rtweet)
+library(tidyverse)
+# library(stringr)  
+# library(tm)  #  text mining
+# library(SnowballC)    # remove common word endings / Stemming
+library(tidytext)
+library(wordcloud2)
+```
+
+
+## Get Tweets 
+
+search_tweets
+```{r getTweets}
+tweet_collection <- search_tweets("marchmadness", n=1000, lang = "en")
+tweet_collection <- tweet_collection %>% 
+  filter(is_retweet == "FALSE")
+tweet_collection
+```
+
+
+## Tokenize tweets
+
+```{r corpus2vector}
+tweets_by_tweeter <- tweet_collection %>% 
+  group_by(screen_name) %>% 
+  mutate(line = row_number()) %>% 
+  ungroup()
+
+tweets_by_tweeter %>% 
+  count(screen_name, sort = TRUE)
+
+glimpse(tweets_by_tweeter)
+```
+
+
+> "Because we have kept text such as hashtags and usernames in the dataset, we can’t use a simple anti_join() to remove stop words. Instead, we can take the approach shown in the filter() line that uses str_detect() from the stringr package. -- https://www.tidytextmining.com/twitter.html
+
+
+```{r tokenized tweets}
+tweets_tokenized <- tweets_by_tweeter %>% 
+  select(text, screen_name, line) %>% 
+  unnest_tokens(word, text, token = "tweets") %>%
+  filter(!word %in% stop_words$word,
+         !word %in% str_remove_all(stop_words$word, "'"),
+         str_detect(word, "[a-z]")) 
+
+tweets_tokenized
+```
+
+## Word frequencies
+
+### Calculate word frequency
+
+```{r}
+frequency <- tweets_tokenized %>% 
+  group_by(screen_name) %>% 
+  count(word, sort = TRUE) %>% 
+  left_join(tweets_tokenized %>% 
+              group_by(screen_name) %>% 
+              summarise(total = n())) %>%
+  mutate(freq = n/total)
+
+frequency
+```
+
+> "This is a nice and tidy data frame but we would actually like to plot those frequencies on the x- and y-axes of a plot, so we will need to use spread() from tidyr make a differently shaped data frame. -- https://www.tidytextmining.com/twitter.html
+
+pivot_wider
+
+```{r}
+frequency <- frequency %>% 
+  select(screen_name, word, freq) %>% 
+  pivot_wider(names_from = screen_name, values_from = freq)
+
+frequency
+
+
+# frequency %>% 
+#   select(screen_name, word, freq) %>% 
+#   spread(screen_name, freq)
+```
+
+### viz it
+
+```{r word_freq plot}
+ggplot(frequency, aes(CBBCent1, Adam_Bradford14)) +
+  geom_jitter(alpha = 0.1, size = 2.5, width = 0.25, height = 0.25) +
+  geom_text(aes(label = word), check_overlap = TRUE, vjust = 1.5) +
+  scale_x_log10(labels = scales::percent_format()) +
+  scale_y_log10(labels = scales::percent_format()) +
+  geom_abline(color = "firebrick")
+
+# marchmadness  TheAndyKatz
+
+ggplot(frequency, aes(marchmadness, TheAndyKatz)) +
+  geom_jitter(alpha = 0.1, size = 2.5, width = 0.25, height = 0.25) +
+  geom_text(aes(label = word), check_overlap = TRUE, vjust = 1.5) +
+  scale_x_log10(labels = scales::percent_format()) +
+  scale_y_log10(labels = scales::percent_format()) +
+  geom_abline(color = "firebrick")
+```
+
+
+## Word Usage
+
+
+```{r}
+# glimpse(tweets_by_tweeter)  # created_at
+
+tweets_by_tweeter %>% 
+  summarise(min_date = min(created_at), max_date = max(created_at))
+
+
+```
+
+
+```{r}
+word_ratios <- tweets_tokenized %>%
+  filter(screen_name == "CBBCent1" | screen_name == "Adam_Bradford14") %>% 
+  filter(!str_detect(word, "^@")) %>%
+  count(word, screen_name) %>%
+  group_by(word) %>%
+  filter(sum(n) >= 2) %>%
+  ungroup() %>%
+  pivot_wider(names_from = screen_name, values_from = n, values_fill = 0) %>%
+  mutate_if(is.numeric, list(~(. + 1) / (sum(.) + 1))) %>%
+  mutate(logratio = log(CBBCent1 / Adam_Bradford14)) %>%
+  arrange(desc(logratio))
+
+word_ratios
+```
+
+### equal usage
+
+```{r}
+word_ratios %>% 
+  arrange(abs(logratio))
+```
+
+
+```{r}
+word_ratios %>%
+  group_by(logratio < 0) %>%
+  top_n(15, abs(logratio)) %>%
+  ungroup() %>%
+  mutate(word = reorder(word, logratio)) %>%
+  ggplot(aes(word, logratio, fill = logratio < 0)) +
+  geom_col() + #show.legend = FALSE) +
+  coord_flip() +
+  ylab("log odds ratio (CCBCent1/Adam_Bradford14)") +
+  scale_fill_discrete(name = "", labels = c("CCBCent1", "Adam_Bradford14"))
+```
+
+## Favorites and retweets
+
+## Changes in word use
+
+
+## Term Document Matrix
+```{r}
+# dtm <- DocumentTermMatrix(docs) 
+
+dtm2 <- TermDocumentMatrix(corpus)
+m <- as.matrix(dtm2)
+v <- sort(rowSums(m),decreasing=TRUE)
+d <- data.frame(word = names(v),freq=v)
+
+d <- d %>% 
+  slice(2:200)
+
+```
+
+## Wordcloud2
+```{r}
+
+wordcloud2(d, color = "random-dark", backgroundColor = "orange")
+
+wordcloud2(d, size = 0.3, shape="star", color = "random-light", backgroundColor = 'black', fontFamily="Loma")
+
+# letterCloud(d, word="R", size = 1, fontFamily="Loma", backgroundColor = 'black')
+
+```
+
+## Resource list
+
+- http://www.sthda.com/english/wiki/text-mining-and-word-cloud-fundamentals-in-r-5-simple-steps-you-should-know
+
+- http://antonio-ferraro.eu.pn/word-clouds-in-r-packages-wordcloud2-and-tm/
+
+- https://jrnold.github.io/qss-tidy/discovery.html#textual-data
+
+- https://rstudio-pubs-static.s3.amazonaws.com/31867_8236987cf0a8444e962ccd2aec46d9c3.html
+
+- of less use
+
+    - http://www.cookbook-r.com/Manipulating_data/Converting_between_data_frames_and_contingency_tables/
+    - https://www.r-bloggers.com/how-to-get-the-frequency-table-of-a-categorical-variable-as-a-data-frame-in-r/
+    - https://www.quora.com/How-do-I-get-a-frequency-count-based-on-two-columns-variables-in-an-R-dataframe
+    - https://www.quora.com/How-do-you-create-a-corpus-from-a-data-frame-in-R
+    
+
