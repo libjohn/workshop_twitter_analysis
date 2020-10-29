@@ -135,3 +135,23 @@ greensboro <- get_trends("greensboro")
 greensboro
 ```
 
+```{r}
+starwars %>% 
+  count(hair_color, sort = TRUE)
+
+starwars %>% 
+  filter(str_detect(hair_color, "grey"))
+
+starwars %>% 
+  filter(hair_color %in% "grey")
+
+starwars %>% 
+  filter(str_detect(homeworld, regex("tatooine", ignore_case = TRUE)))
+
+starwars %>% 
+  mutate(foo = str_extract(hair_color, ".*(?=,\\s)")) %>% 
+  mutate(foo2 = str_extract(hair_color, "\\w+$")) %>%
+  select(foo, foo2, hair_color) %>%
+  filter(str_detect(hair_color, ","))
+```
+
