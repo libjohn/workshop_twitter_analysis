@@ -10,7 +10,7 @@ https://www.tidytextmining.com/
 
 ## load libraries
 
-```{r libraries, warning=FALSE}
+```{r libraries, message=FALSE, warning=FALSE}
 library(rtweet)
 library(tidyverse)
 library(tidytext)
@@ -213,7 +213,8 @@ https://www.tidytextmining.com/twitter.html#changes-in-word-use
 
 ## Term Document Matrix
 
-```{r}
+```
+{r}
 # dtm <- DocumentTermMatrix(docs) 
 
 dtm2 <- TermDocumentMatrix(corpus)
