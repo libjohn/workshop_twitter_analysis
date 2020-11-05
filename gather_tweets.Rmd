@@ -9,14 +9,15 @@ library(tidyverse)
 library(rtweet)
 ```
 
+- https://docs.ropensci.org/rtweet/
+- [Introduction to gathering tweets with rwteet](https://docs.ropensci.org/rtweet/articles/intro.html)
+
 
 ## Search tweets
 
-`search_tweets`
+`search_tweets()` - search a keyword(s) or hashtag
 
-- @nprmusic
-- #tinydesk
-- @RhiannonGiddens  [porgy & bess]
+I recommend limiting the number of tweets returned (`n = 1000`) for this training.  Otherwise you'll probably hit a rate limit.
 
 ```{r}
 bts <- search_tweets("#BTS", n = 5000, include_rts = FALSE)
@@ -31,16 +32,17 @@ bts_dynamite
 
 ## get friends
 
-@john_little
+Find all the accounts a user follows
 
 ```{r}
 john_little <-  get_friends("john_little")
 ```
 
-
 ```{r}
 john_little
 ```
+
+Use the retreived `user_id` to get more information about those accounts.
 
 ```{r}
 john_little_data <- lookup_users(john_little$user_id)
@@ -51,6 +53,8 @@ john_little_data
 ```
 
 ## get followers
+
+Who is following me?  `get_followers()`
 
 ```{r}
 jrl_flw <- get_followers("john_little")
@@ -67,6 +71,8 @@ jrl_flw_data
 ```
 
 ## timelines
+
+Get the most recent tweets from an account
 
 ```{r}
 rg_tmls <- get_timelines("RhiannonGiddens", n = 3200)
@@ -103,6 +109,8 @@ rg_tmls %>%
 
 ## get_favorites
 
+Get the most recent favorites from a user
+
 ```{r}
 rg_faves <- get_favorites("RhiannonGiddens", n = 3000)
 ```
@@ -111,7 +119,10 @@ rg_faves <- get_favorites("RhiannonGiddens", n = 3000)
 rg_faves
 ```
 
-## search users
+## Profiles
+
+Search a users' profiles
+
 
 ```{r}
 gullah <- search_users("#gullah", n = 1000)
@@ -124,6 +135,8 @@ gullah
 
 ## get trends
 
+What is trendingin a specific location?
+
 ```{r}
 # sf <- get_trends("san franciso")
 # durham <- get_trends(lat = 36.0, lng = -78.9)
@@ -134,14 +147,19 @@ greensboro <- get_trends("greensboro")
 greensboro
 ```
 
+## Location information
 
+Using some additional R libraries, the location information can be geocoded and then visualize.
+
+### First, geocode 
+
+Use the [tidygeocoder](https://jessecambon.github.io/tidygeocoder) package.  
 
 ```{r}
 # glimpse(rg_tmls)
 rg_places <- rg_tmls %>% 
   drop_na(place_name) %>% 
   select(place_name:bbox_coords) %>% 
-  # filter(country_code == "US")  %>% 
   distinct() %>% 
   mutate(addr = glue::glue("{place_full_name}, {country}")) %>% 
   tidygeocoder::geocode(addr, method = "osm")
@@ -149,6 +167,9 @@ rg_places <- rg_tmls %>%
 rg_places
 ```
 
+### Visuzlize 
+
+You can create maps in R.  Below is one of the easiest, especially if you know [ggplot2](https://ggplot2.tidyverse.org)
 
 ```{r}
 rg_places %>% 
@@ -163,6 +184,10 @@ rg_places %>%
   theme_void()
 ```
 
+### Second location example
+
+Very similar to above.  For accounts with "#gullah" in their profile, and that have location information listed, then geocode the location .....
+
 ```{r}
 gullah_places <- gullah %>% 
   drop_na(place_name) %>% 
@@ -174,6 +199,10 @@ gullah_places <- gullah %>%
 
 gullah_places
 ```
+
+And visualize on a US map of the _lower 48_ states.
+
+You can learn more about basic R mapping from our workshop on [mapping with R](https://rfun.library.duke.edu/portfolio/mapping_workshop/)
 
 
 ```{r}
