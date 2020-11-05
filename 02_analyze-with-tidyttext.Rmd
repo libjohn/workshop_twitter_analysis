@@ -18,13 +18,24 @@ library(wordcloud2)
 ```
 
 
+
+
 ## Get Tweets 
 
 search_tweets
 ```{r getTweets}
-tweet_collection <- search_tweets("marchmadness", n=1000, lang = "en")
+tweet_collection <- search_tweets("marchmadness", n=5000, lang = "en")
+
+tweet_collection.orig <- tweet_collection
+```
+
+
+```{r process Tweets}
 tweet_collection <- tweet_collection %>% 
-  filter(is_retweet == "FALSE")
+  filter(is_retweet == "FALSE") %>% 
+  filter(!str_detect(text, "electionnight")) %>% 
+  filter(!str_detect(hashtags, "electionnight"))
+
 tweet_collection
 ```
 
@@ -40,7 +51,7 @@ tweets_by_tweeter <- tweet_collection %>%
 tweets_by_tweeter %>% 
   count(screen_name, sort = TRUE)
 
-glimpse(tweets_by_tweeter)
+# glimpse(tweets_by_tweeter)
 ```
 
 
@@ -133,7 +144,7 @@ tweets_tokenized %>%
 
 
 ```{r word_freq plot}
-ggplot(frequency, aes(LouInPain, Dukeballnation)) +
+ggplot(frequency, aes(CBBCent1, marchmadness)) +
   geom_jitter(alpha = 0.1, size = 2.5, width = 0.25, height = 0.25) +
   geom_text(aes(label = word), check_overlap = TRUE, vjust = 1.5) +
   scale_x_log10(labels = scales::percent_format()) +
@@ -146,7 +157,7 @@ ggplot(frequency, aes(LouInPain, Dukeballnation)) +
 # "CBBCent1" | screen_name == "Adam_Bradford1
 # marchmadness  TheAndyKatz
 
-ggplot(frequency, aes(marchmadness, TheAndyKatz)) +
+ggplot(frequency, aes(marchmadness, novainsider1985)) +
   geom_jitter(alpha = 0.1, size = 2.5, width = 0.25, height = 0.25) +
   geom_text(aes(label = word), check_overlap = TRUE, vjust = 1.5) +
   scale_x_log10(labels = scales::percent_format()) +
