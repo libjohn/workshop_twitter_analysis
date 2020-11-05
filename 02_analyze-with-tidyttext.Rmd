@@ -24,7 +24,7 @@ library(wordcloud2)
 
 search_tweets
 ```{r getTweets}
-tweet_collection <- search_tweets("marchmadness", n=5000, lang = "en")
+tweet_collection <- search_tweets("#nfl", n=4000, lang = "en")
 
 tweet_collection.orig <- tweet_collection
 ```
@@ -53,6 +53,27 @@ tweets_by_tweeter %>%
 
 # glimpse(tweets_by_tweeter)
 ```
+
+```{r}
+bad_hashtags <- tweets_by_tweeter %>% 
+  select(status_id, hashtags) %>% 
+  unnest() %>% 
+  filter(str_detect(hashtags, regex("electionnight", ignore_case = TRUE)) |
+           # str_detect(hashtags, regex("election20", ignore_case = TRUE)) |
+           str_detect(hashtags, "2020")) %>% 
+  distinct(status_id)
+bad_hashtags
+  # group_by(hashtags) %>% 
+  # summarise(tot_status_id = n()) %>% 
+  # arrange(-tot_status_id)          # ElectionNight  / Election2020
+  # count(hashtags, sort = TRUE)
+
+tweets_by_tweeter <- tweets_by_tweeter %>% 
+  anti_join(bad_hashtags)
+
+tweets_by_tweeter
+```
+
 
 
 > "Because we have kept text such as hashtags and usernames in the dataset, we can’t use a simple anti_join() to remove stop words. Instead, we can take the approach shown in the filter() line that uses str_detect() from the stringr package. -- https://www.tidytextmining.com/twitter.html
@@ -111,7 +132,7 @@ frequency <- frequency %>%
   select(screen_name, word, freq) %>% 
   pivot_wider(names_from = screen_name, values_from = freq) #, values_fill = 0)
 
-frequency
+frequency 
 ```
 
 ### viz it
@@ -120,9 +141,10 @@ frequency
 tweets_tokenized %>% 
   # group_by(screen_name) %>% 
   count(word, sort = TRUE, name = "freq") %>% 
+  head(200) %>% 
   filter(!str_detect(word, "^\\@")) %>% 
   anti_join(stopwordslangs)  %>% 
-  wordcloud2()
+  wordcloud2(size = 2)
 
 ```
 ```{r word-freq barplot, fig.height=7}
@@ -144,7 +166,7 @@ tweets_tokenized %>%
 
 
 ```{r word_freq plot}
-ggplot(frequency, aes(CBBCent1, marchmadness)) +
+ggplot(frequency, aes(CBBCent1, STLBreak)) +
   geom_jitter(alpha = 0.1, size = 2.5, width = 0.25, height = 0.25) +
   geom_text(aes(label = word), check_overlap = TRUE, vjust = 1.5) +
   scale_x_log10(labels = scales::percent_format()) +
@@ -178,7 +200,7 @@ tweets_by_tweeter %>%
 ```{r}
 word_ratios <- tweets_tokenized %>%
   # filter(screen_name == "CBBCent1" | screen_name == "Adam_Bradford14") %>%
-  filter(screen_name == "LouInPain" | screen_name == "Dukeballnation") %>% 
+  filter(screen_name == "CBBCent1" | screen_name == "STLBreak") %>% 
   filter(!str_detect(word, "^@")) %>%
   count(word, screen_name) %>%
   group_by(word) %>%
@@ -186,7 +208,7 @@ word_ratios <- tweets_tokenized %>%
   ungroup() %>%
   pivot_wider(names_from = screen_name, values_from = n, values_fill = 0) %>%
   mutate_if(is.numeric, list(~(. + 1) / (sum(.) + 1))) %>%
-  mutate(logratio = log(LouInPain / Dukeballnation)) %>%
+  mutate(logratio = log(CBBCent1 / STLBreak)) %>%
   arrange(desc(logratio))
 
 word_ratios
@@ -209,8 +231,8 @@ word_ratios %>%
   ggplot(aes(word, logratio, fill = logratio < 0)) +
   geom_col() + #show.legend = FALSE) +
   coord_flip() +
-  ylab("log odds ratio (CCBCent1/Adam_Bradford14)") +
-  scale_fill_discrete(name = "", labels = c("LouInPain", "Dukeballnation"))
+  ylab("log odds ratio (STLBreak/CBBCent1)") +
+  scale_fill_discrete(name = "", labels = c("STLBreak", "CBBCent1"))
 ```
 
 
