@@ -128,6 +128,7 @@ rg_tmls %>%
     caption = "Source: Data collected from Twitter's REST API via rtweet"
   )
 
+# ggsave("images/giddens_timeline.png")
 
 ```
 
@@ -205,6 +206,8 @@ rg_places %>%
                             segment.color = "goldenrod", segment.size = 1,
                             color = "navy") + 
   theme_void()
+
+# ggsave("images/giddens_locations_map.png")
 ```
 
 ### Second location example
