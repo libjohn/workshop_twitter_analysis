@@ -6,7 +6,8 @@ date: '`r Sys.Date()`'
 output: html_notebook
 ---
 
-https://www.tidytextmining.com/
+This document uses the Sigle/Robinson book on [_Tidy Text Mining_](https://www.tidytextmining.com/). Chapter 7 has a very useful case study for comparing twitter archives.
+ 
 
 ## load libraries
 
@@ -17,10 +18,9 @@ library(tidytext)
 library(wordcloud2)
 ```
 
-
-
-
 ## Get Tweets 
+
+The other notebook, 01_gather-tweets.Rmd, covers tweet gathering in more detail
 
 search_tweets
 ```{r getTweets}
@@ -52,29 +52,6 @@ tweets_by_tweeter %>%
 # glimpse(tweets_by_tweeter)
 ```
 
-```
-{r}
-bad_hashtags <- tweets_by_tweeter %>% 
-  select(status_id, hashtags) %>% 
-  unnest() %>% 
-  # filter(str_detect(hashtags, regex("electionnight", ignore_case = TRUE)) |
-  #          # str_detect(hashtags, regex("election20", ignore_case = TRUE)) |
-  #          str_detect(hashtags, "2020")) %>% 
-  distinct(status_id)
-
-bad_hashtags
-  # group_by(hashtags) %>% 
-  # summarise(tot_status_id = n()) %>% 
-  # arrange(-tot_status_id)          # ElectionNight  / Election2020
-  # count(hashtags, sort = TRUE)
-
-tweets_by_tweeter <- tweets_by_tweeter %>% 
-  anti_join(bad_hashtags)
-
-tweets_by_tweeter
-```
-
-
 
 > "Because we have kept text such as hashtags and usernames in the dataset, we can’t use a simple anti_join() to remove stop words. Instead, we can take the approach shown in the filter() line that uses str_detect() from the stringr package. -- https://www.tidytextmining.com/twitter.html
 
@@ -92,6 +69,8 @@ tweets_tokenized
 
 ## stop words
 
+The `rtweet` package has a special stopwords dataset that may come in handy with tweets....
+
 ```{r}
 head(stopwordslangs)
 ```
@@ -103,8 +82,6 @@ tweets_tokenized %>%
   filter(!str_detect(word, "^\\@")) %>% 
   anti_join(stopwordslangs)           # anti_join(tidytext::get_stopwords())
 ```
-
-
 
 
 ## Word frequencies
@@ -135,7 +112,9 @@ frequency <- frequency %>%
 frequency 
 ```
 
-### viz it
+### Visualize
+
+Word cloud
 
 ```{r word-cloud}
 tweets_tokenized %>% 
@@ -147,6 +126,8 @@ tweets_tokenized %>%
   wordcloud2(size = 2)
 
 ```
+
+Frequencies are often better expressed with bars
 
 ```{r word-freq barplot, fig.height=7}
 tweets_tokenized %>% 
@@ -165,6 +146,8 @@ tweets_tokenized %>%
   geom_col()
 ```
 
+Or plot the word frequency ratios of two tweeters
+https://www.tidytextmining.com/twitter.html#word-frequencies-1
 
 ```{r word_freq plot}
 ggplot(frequency, aes(RGONZALEZ1978, BrickFanatics)) +
@@ -173,18 +156,6 @@ ggplot(frequency, aes(RGONZALEZ1978, BrickFanatics)) +
   scale_x_log10(labels = scales::percent_format()) +
   scale_y_log10(labels = scales::percent_format()) +
   geom_abline(color = "firebrick")
-
-# fs::dir_create("images")
-# ggsave("images/dukeball.png")
-
-# "CBBCent1" | screen_name == "Adam_Bradford1
-# marchmadness  TheAndyKatz
-
-# RGONZALEZ1978
-# <dbl>
-# BrickFanatics
-# <dbl>
-
 
 ggplot(frequency, aes(BrickFanatics, fantasysite)) +
   geom_jitter(alpha = 0.1, size = 2.5, width = 0.25, height = 0.25) +
@@ -196,6 +167,8 @@ ggplot(frequency, aes(BrickFanatics, fantasysite)) +
 
 
 ## Word Usage
+
+https://www.tidytextmining.com/twitter.html#comparing-word-usage
 
 
 ```{r}
@@ -243,7 +216,6 @@ word_ratios %>%
   scale_fill_brewer(palette = "Dark2", name = "", labels = c("BrickFanatics", "fantasysite"))
 ```
 
-
 ## Favorites and retweets
 
 https://www.tidytextmining.com/twitter.html#favorites-and-retweets
@@ -253,20 +225,6 @@ https://www.tidytextmining.com/twitter.html#favorites-and-retweets
 https://www.tidytextmining.com/twitter.html#changes-in-word-use
 
 ## Term Document Matrix
-
-```
-{r}
-# dtm <- DocumentTermMatrix(docs) 
-
-dtm2 <- TermDocumentMatrix(corpus)
-m <- as.matrix(dtm2)
-v <- sort(rowSums(m),decreasing=TRUE)
-d <- data.frame(word = names(v),freq=v)
-
-d <- d %>% 
-  slice(2:200)
-
-```
 
 https://www.tidytextmining.com/tfidf.html#the-bind_tf_idf-function
 
@@ -314,9 +272,6 @@ tweet_words %>%
 ```
 
 
-
-
-
 ## Resource list
 
 - http://www.sthda.com/english/wiki/text-mining-and-word-cloud-fundamentals-in-r-5-simple-steps-you-should-know
@@ -327,7 +282,7 @@ tweet_words %>%
 
 - https://rstudio-pubs-static.s3.amazonaws.com/31867_8236987cf0a8444e962ccd2aec46d9c3.html
 
-- of less use
+- misc
 
     - http://www.cookbook-r.com/Manipulating_data/Converting_between_data_frames_and_contingency_tables/
     - https://www.r-bloggers.com/how-to-get-the-frequency-table-of-a-categorical-variable-as-a-data-frame-in-r/

@@ -1,34 +1,53 @@
 ---
 title: "gather with rtweet"
+author: "John Little"
+date: "`r Sys.Date()`"
 output: html_notebook
 ---
 
+license: "CC BY-NC"  
+Creative Commong:  Attribution, Non-Commerical  
+https://creativecommons.org/licenses/by-nc/4.0/  
 
-```{r}
+
+Find this repository:  https://github.com/libjohn/workshop_twitter_analysis
+
+Much of this review comes from [Introduction to gathering tweets with rwteet](https://docs.ropensci.org/rtweet/articles/intro.html) using the [`rtweet` package](https://docs.ropensci.org/rtweet/).  Conveniently, you **no longer need** a [Twitter API developer key](https://docs.ropensci.org/rtweet/articles/auth.html) to use this package.  You **do need a Twitter account.**  
+
+<center>**How to gather twitter data via the API**</center>
+
+## Load library packages
+
+Use the [tidyverse](https://tidyverse.org) and rtweet
+
+```{r message=FALSE, warning=FALSE}
 library(tidyverse)
 library(rtweet)
 ```
-
-- https://docs.ropensci.org/rtweet/
-- [Introduction to gathering tweets with rwteet](https://docs.ropensci.org/rtweet/articles/intro.html)
 
 
 ## Search tweets
 
 `search_tweets()` - search a keyword(s) or hashtag
 
-I recommend limiting the number of tweets returned (`n = 1000`) for this training.  Otherwise you'll probably hit a rate limit.
+I recommend limiting the number of tweets returned (`n = 1000`) for this training.  Otherwise you may hit a rate limit.
 
 ```{r}
-bts <- search_tweets("#BTS", n = 5000, include_rts = FALSE)
-
-bts_dynamite <- search_tweets("#BTS dynamite", n = 5000, include_rts = FALSE)
+#bts <- search_tweets("#BTS", n = 5000, include_rts = FALSE)
+bts_dynamite <- search_tweets("#BTS dynamite", n = 1000, include_rts = FALSE)
 ```
 
+Gathering tweets will return a 90 variable tibble of whatever row-size you were able to collect.  You'll want to spend some time familiarizing yourself with these variables and the range of data that can be gathered.
+
 ```{r}
-bts
+# bts
 bts_dynamite
 ```
+
+## Serialize the gathering
+
+- Windows:  https://github.com/bnosac/taskscheduleR
+- Linux: https://github.com/bnosac/cronR#cronr
 
 ## get friends
 
@@ -38,11 +57,13 @@ Find all the accounts a user follows
 john_little <-  get_friends("john_little")
 ```
 
+This returns the twitter name, i.e. `user`, and the `user_id` for each person following that user.
+
 ```{r}
 john_little
 ```
 
-Use the retreived `user_id` to get more information about those accounts.
+Next, use `lookup_users` with the `user_id` to get more information about those accounts.
 
 ```{r}
 john_little_data <- lookup_users(john_little$user_id)
@@ -79,13 +100,16 @@ rg_tmls <- get_timelines("RhiannonGiddens", n = 3200)
 ```
 
 
-min(created_at)     | max(created_at)
-------------------- | ---
-2015-04-21 13:59:55 |	2020-10-27 20:49:18	
+```{r}
+rg_tmls %>% 
+  summarise(min(created_at), max(created_at))
+```
+
+### Visuzlize
 
 ```{r warning=FALSE}
 rg_tmls %>% 
-  dplyr::filter(created_at > "2016-01-01") %>%  
+  dplyr::filter(created_at >= "2016-01-01") %>%  
   dplyr::group_by(screen_name) %>%
   ts_plot("weeks", trim = 1L) +
   ggplot2::geom_point() +
@@ -123,7 +147,6 @@ rg_faves
 
 Search a users' profiles
 
-
 ```{r}
 gullah <- search_users("#gullah", n = 1000)
 ```
@@ -149,7 +172,7 @@ greensboro
 
 ## Location information
 
-Using some additional R libraries, the location information can be geocoded and then visualize.
+Using the tidygeocoder R library, we can find location information when place_names are available.
 
 ### First, geocode 
 
@@ -169,7 +192,7 @@ rg_places
 
 ### Visuzlize 
 
-You can create maps in R.  Below is one of the easiest, especially if you know [ggplot2](https://ggplot2.tidyverse.org)
+You can create maps in R.  Below is one of the easiest methods, especially if you know [ggplot2](https://ggplot2.tidyverse.org)
 
 ```{r}
 rg_places %>% 
@@ -186,7 +209,7 @@ rg_places %>%
 
 ### Second location example
 
-Very similar to above.  For accounts with "#gullah" in their profile, and that have location information listed, then geocode the location .....
+Very similar to above.  For accounts with "#gullah" in their profile, and that have location information listed, geocode the locations .....
 
 ```{r}
 gullah_places <- gullah %>% 
@@ -200,7 +223,7 @@ gullah_places <- gullah %>%
 gullah_places
 ```
 
-And visualize on a US map of the _lower 48_ states.
+And now visualize on a US map of the _lower 48_ states.
 
 You can learn more about basic R mapping from our workshop on [mapping with R](https://rfun.library.duke.edu/portfolio/mapping_workshop/)
 
