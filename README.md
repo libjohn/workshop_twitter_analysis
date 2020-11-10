@@ -1,11 +1,11 @@
 README
 ================
 John Little
-2020-11-06
+2020-11-10
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-## rtweet for twitter data"
+## rtweet for twitter data
 
 **Case study: gather and analyze tweets**
 

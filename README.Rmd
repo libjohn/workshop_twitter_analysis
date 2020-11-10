@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-## rtweet for twitter data"
+## rtweet for twitter data
 
 **Case study:  gather and analyze tweets**
 
