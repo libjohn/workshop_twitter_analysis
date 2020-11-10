@@ -38,7 +38,7 @@ Additionally, analysis techniques are derived from [_Tidy Text Modelling_](https
 - https://github.com/libjohn/workshop_twitter_analysis
 - https://docs.ropensci.org/rtweet
 - https://rfun.library.duke.edu
-- [Resources](blob/main/RESOURCES.Rmd)
+- [Resources](RESOURCES.Rmd)
 - https://library.duke.edu/data
 - https://github.com/libjohn/workshop_webscraping
 
