@@ -6,7 +6,7 @@ output: html_notebook
 ---
 
 license: "CC BY-NC"  
-Creative Commong:  Attribution, Non-Commerical  
+Creative Commons:  Attribution, Non-Commerical  
 https://creativecommons.org/licenses/by-nc/4.0/  
 
 
