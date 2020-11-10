@@ -41,9 +41,9 @@ In addition to the links listed above, See Also:
 - https://docs.ropensci.org/rtweet
 - [Twitter API access tokens](https://docs.ropensci.org/rtweet/articles/auth.html#access-tokensecret-method)
 - https://rfun.library.duke.edu
-- [Resources](RESOURCES.md)
 - https://library.duke.edu/data
 - https://github.com/libjohn/workshop_webscraping
+- [Additonal Resources and third-party access options](RESOURCES.md)
 
 
 license: "CC BY-NC"  
