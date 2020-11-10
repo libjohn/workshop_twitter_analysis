@@ -37,6 +37,12 @@ I recommend limiting the number of tweets returned (`n = 1000`) for this trainin
 bts_dynamite <- search_tweets("#BTS dynamite", n = 1000, include_rts = FALSE)
 ```
 
+### Access tokens:  Problems with above?
+
+If you were unable to authenticate with the Twitter API, you may be using an RStudio instance in the cloud.  If that is a problem you will need to use the `rwteet::create_token()` function.  Read more about obtaining and using tokens.  **Specifically**, see under the authorization methods, section 2 [_Access token/secret method_](https://docs.ropensci.org/rtweet/articles/auth.html#access-tokensecret-method) 
+
+### Results
+
 Gathering tweets will return a 90 variable tibble of whatever row-size you were able to collect.  You'll want to spend some time familiarizing yourself with these variables and the range of data that can be gathered.
 
 ```{r}

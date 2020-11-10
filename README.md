@@ -32,8 +32,12 @@ Modelling*](https://www.tidytextmining.com/) by Sigle & Robinson
 
 ## Links used in the presentation
 
+In addition to the links listed above, See Also:
+
   - <https://github.com/libjohn/workshop_twitter_analysis>
   - <https://docs.ropensci.org/rtweet>
+  - [Twitter API access
+    tokens](https://docs.ropensci.org/rtweet/articles/auth.html#access-tokensecret-method)
   - <https://rfun.library.duke.edu>
   - [Resources](RESOURCES.md)
   - <https://library.duke.edu/data>
