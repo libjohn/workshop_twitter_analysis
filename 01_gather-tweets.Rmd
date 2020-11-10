@@ -125,7 +125,7 @@ rg_tmls %>%
   summarise(min(created_at), max(created_at))
 ```
 
-### Visuzlize
+### Visualize
 
 ```{r warning=FALSE}
 rg_tmls %>% 
