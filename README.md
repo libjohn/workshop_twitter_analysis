@@ -30,6 +30,15 @@ Modelling*](https://www.tidytextmining.com/) by Sigle & Robinson
 
 ![](images/giddens_locations_map.png "map of Giddens locations")
 
+## Links used in the presentation
+
+  - <https://github.com/libjohn/workshop_twitter_analysis>
+  - <https://docs.ropensci.org/rtweet>
+  - <https://rfun.library.duke.edu>
+  - [Resources](blob/main/RESOURCES.Rmd)
+  - <https://library.duke.edu/data>
+  - <https://github.com/libjohn/workshop_webscraping>
+
 license: “CC BY-NC”  
 Creative Commong: Attribution, Non-Commerical  
 <https://creativecommons.org/licenses/by-nc/4.0/>
