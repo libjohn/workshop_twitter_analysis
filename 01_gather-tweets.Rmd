@@ -44,7 +44,27 @@ Gathering tweets will return a 90 variable tibble of whatever row-size you were 
 bts_dynamite
 ```
 
+```
+{r}
+glimpse(bts_dynamite)
+```
+
+
+### Your Turn
+
+
+
+```
+{r}
+my_gathered_tweets <- search_tweets("_________", n = 1000, include_rts = FALSE)
+```
+
+
+
+
 ## Serialize the gathering
+
+If you're collecting data into the future, you may want to set your twitter API search to run on a schedule.  How you set up your compute structure matters here.  One way is to use the Duke VCM cloud computers along with the 
 
 - Windows:  https://github.com/bnosac/taskscheduleR
 - Linux: https://github.com/bnosac/cronR#cronr
