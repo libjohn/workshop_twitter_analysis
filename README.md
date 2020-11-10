@@ -35,7 +35,7 @@ Modelling*](https://www.tidytextmining.com/) by Sigle & Robinson
   - <https://github.com/libjohn/workshop_twitter_analysis>
   - <https://docs.ropensci.org/rtweet>
   - <https://rfun.library.duke.edu>
-  - [Resources](RESOURCES.Rmd)
+  - [Resources](RESOURCES.md)
   - <https://library.duke.edu/data>
   - <https://github.com/libjohn/workshop_webscraping>
 
