@@ -230,7 +230,8 @@ rg_places %>%
   geom_point(color = "goldenrod") + 
   ggrepel::geom_label_repel(aes(label = place_full_name), 
                             segment.color = "goldenrod", segment.size = 1,
-                            color = "navy") + 
+                            color = "navy",
+                            max.overlaps = 20) + 
   theme_void()
 
 # ggsave("images/giddens_locations_map.png")
