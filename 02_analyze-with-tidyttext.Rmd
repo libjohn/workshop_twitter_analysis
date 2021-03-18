@@ -24,7 +24,7 @@ library(wordcloud2)
 
 search_tweets
 ```{r getTweets}
-tweet_collection <- search_tweets("#nfl", n=4000, lang = "en")
+tweet_collection <- search_tweets("#amongusfanart", n=4000, lang = "en")
 
 tweet_collection.orig <- tweet_collection
 ```
@@ -57,7 +57,7 @@ tweets_by_tweeter %>%
 ```{r}
 bad_hashtags <- tweets_by_tweeter %>% 
   select(status_id, hashtags) %>% 
-  unnest() %>% 
+  unnest(hashtags) %>% 
   filter(str_detect(hashtags, regex("electionnight", ignore_case = TRUE)) |
            # str_detect(hashtags, regex("election20", ignore_case = TRUE)) |
            str_detect(hashtags, "2020")) %>% 
@@ -166,20 +166,7 @@ tweets_tokenized %>%
 
 
 ```{r word_freq plot}
-ggplot(frequency, aes(CBBCent1, STLBreak)) +
-  geom_jitter(alpha = 0.1, size = 2.5, width = 0.25, height = 0.25) +
-  geom_text(aes(label = word), check_overlap = TRUE, vjust = 1.5) +
-  scale_x_log10(labels = scales::percent_format()) +
-  scale_y_log10(labels = scales::percent_format()) +
-  geom_abline(color = "firebrick")
-
-# fs::dir_create("images")
-# ggsave("images/dukeball.png")
-
-# "CBBCent1" | screen_name == "Adam_Bradford1
-# marchmadness  TheAndyKatz
-
-ggplot(frequency, aes(marchmadness, novainsider1985)) +
+ggplot(frequency, aes(SakuraYamazaki5, HinaYamazaki1)) +
   geom_jitter(alpha = 0.1, size = 2.5, width = 0.25, height = 0.25) +
   geom_text(aes(label = word), check_overlap = TRUE, vjust = 1.5) +
   scale_x_log10(labels = scales::percent_format()) +
@@ -200,7 +187,7 @@ tweets_by_tweeter %>%
 ```{r}
 word_ratios <- tweets_tokenized %>%
   # filter(screen_name == "CBBCent1" | screen_name == "Adam_Bradford14") %>%
-  filter(screen_name == "CBBCent1" | screen_name == "STLBreak") %>% 
+  filter(screen_name == "SakuraYamazaki5" | screen_name == "HinaYamazaki1") %>% 
   filter(!str_detect(word, "^@")) %>%
   count(word, screen_name) %>%
   group_by(word) %>%
@@ -208,7 +195,7 @@ word_ratios <- tweets_tokenized %>%
   ungroup() %>%
   pivot_wider(names_from = screen_name, values_from = n, values_fill = 0) %>%
   mutate_if(is.numeric, list(~(. + 1) / (sum(.) + 1))) %>%
-  mutate(logratio = log(CBBCent1 / STLBreak)) %>%
+  mutate(logratio = log(SakuraYamazaki5  / HinaYamazaki1)) %>%
   arrange(desc(logratio))
 
 word_ratios
@@ -231,8 +218,8 @@ word_ratios %>%
   ggplot(aes(word, logratio, fill = logratio < 0)) +
   geom_col() + #show.legend = FALSE) +
   coord_flip() +
-  ylab("log odds ratio (STLBreak/CBBCent1)") +
-  scale_fill_discrete(name = "", labels = c("STLBreak", "CBBCent1"))
+  ylab("log odds ratio (SakuraYamazaki5/HinaYamazaki1)") +
+  scale_fill_discrete(name = "", labels = c("SakuraYamazaki5", "HinaYamazaki1"))
 ```
 
 
@@ -264,12 +251,14 @@ https://www.tidytextmining.com/tfidf.html#the-bind_tf_idf-function
 
 ```{r}
 tweet_words <- tweets_by_tweeter %>% 
+  slice_head(n = 50) %>% 
   select(screen_name, text, status_id, user_id) %>%  
   unnest_tokens(word, text, token = "tweets") %>% 
   filter(!str_detect(word, "^\\@")) %>%
   filter(!str_detect(word, "^http")) %>%
   anti_join(stopwordslangs)  %>% 
   count(word, tweeter = screen_name, sort = TRUE)
+
 
 tweet_words
 
@@ -290,14 +279,15 @@ tweet_words %>%
   bind_tf_idf(word, tweeter, n)
 ```
 
-```{r fig.height=12}
+```{r fig.height=10, fig.width=15}
 tweet_words %>% 
+  # filter(tweeter != "cpsbeingweird") %>% 
   bind_tf_idf(word, tweeter, n) %>% 
   arrange(desc(tf_idf)) %>% 
   mutate(word = factor(word, levels = rev(unique(word)))) %>% 
   filter(n > 2) %>% 
-  # group_by(tweeter) %>% 
-  # top_n(2) %>% 
+  group_by(tweeter) %>%
+  # top_n(10) %>%
   # ungroup() %>% 
   ggplot(aes(word, tf_idf)) +
   geom_col() +
