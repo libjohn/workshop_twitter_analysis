@@ -20,20 +20,12 @@ options(htmltools.dir.version = FALSE)
 ```
 
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
-library(xaringanthemer)
-# style_duo_accent(
-#   primary_color = "#1381B0",
-#   secondary_color = "#FF961C",
-#   inverse_header_color = "#FFFFFF"
-# )
 library(tidyverse)
-# library(gt)
-# library(xaringanthemer)
 library(xaringanExtra)
 xaringanExtra::use_tachyons()
 library(htmltools)
 tagList(rmarkdown::html_dependency_font_awesome())
-
+# library(xaringanthemer)
 #style_duo_accent(primary_color = "#012169", secondary_color = "#005587")
 ```
 
