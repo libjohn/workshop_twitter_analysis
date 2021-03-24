@@ -54,11 +54,7 @@ I would like to take a moment to honor the land in Durham, NC.  Duke University 
 - Point out useful documentation / resources 
 
 
-.f6.i.moon-gray[This is not a text analysis workshop.  The foundations of text analysis require considerably more time that we have. This is a demonstration on leveraging the Tidyverse to gather twitter data.]
-
-<div class="footercc">
-<i class="fab fa-creative-commons"></i>&nbsp; <i class="fab fa-creative-commons-by"></i><i class="fab fa-creative-commons-nc"></i>  <a href = "https://johnlittle.info">https://JohnLittle.info</a>
-</div>
+.f6.i.moon-gray[This is not a text analysis workshop.  The foundations of text analysis require considerably more time that we have. This is a demonstration on leveraging the following packages to gather twitter data: `tidyverse`, ropensci's `rtweet`, and the `tidytext` ]
 
 --
 
@@ -86,6 +82,8 @@ A set of rules and protocols used to build a software application.  In the conte
 ```{r child="_child-footer.Rmd", include=FALSE}
 ```
 
+Publish & analyze Tweets, optimize ads, & create unique customer experiences with the Twitter API
+
 - https://developer.twitter.com/en/apply-for-access
 
 - https://developer.twitter.com/en/portal/petition/academic/is-it-right-for-you
@@ -103,6 +101,10 @@ A set of rules and protocols used to build a software application.  In the conte
 - [Javascript Object Notation](https://en.wikipedia.org/wiki/JSON) is a language-independent data format  
 - Currently the most common data data format for asynchronous client/server communication format  
 - Consists of key-value pairs  
+- Elements of the data model (data structure) are embedded with the data, relative to the data record
+- `jsonlite` package for parsing JSON
+- `rwteet` (specific to the twitter developer API)
+
 ]  
 .pull-right[
 ```{json example}
@@ -159,7 +161,7 @@ https://docs.ropensci.org/rtweet/
 - [Intro to rtweet: Collecting Twitter Data](https://docs.ropensci.org/rtweet/articles/intro.html)
 
 ---
-## Text analysis with `tidytext`
+## Text analysis 
 
 ```{r child="_child-footer.Rmd", include=FALSE}
 ```

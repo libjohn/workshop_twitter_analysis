@@ -39,7 +39,7 @@ I would like to take a moment to honor the land in Durham, NC.  Duke University 
 
 &lt;div class="footercc"&gt;
 &lt;i class="fab fa-creative-commons"&gt;&lt;/i&gt;&amp;nbsp; &lt;i class="fab fa-creative-commons-by"&gt;&lt;/i&gt;&lt;i class="fab fa-creative-commons-nc"&gt;&lt;/i&gt;  &lt;a href = "https://JohnLittle.info"&gt;&lt;span class = "opacity30"&gt;https://&lt;/span&gt;JohnLittle&lt;span class = "opacity30"&gt;.info&lt;/span&gt;&lt;/a&gt; 
-&lt;span class = "opacity30"&gt; | &lt;a href="https://github.com/libjohn/workshop_webscraping"&gt;https://github.com/libjohn/workshop_webscraping&lt;/a&gt; | 2021-03-24 &lt;/span&gt;
+&lt;span class = "opacity30"&gt; | &lt;a href="https://github.com/libjohn/workshop_twitter_analysis"&gt;https://github.com/libjohn/workshop_twitter_analysis&lt;/a&gt; | 2021-03-24 &lt;/span&gt;
 &lt;/div&gt;
 
 
@@ -51,11 +51,7 @@ I would like to take a moment to honor the land in Durham, NC.  Duke University 
 - Point out useful documentation / resources 
 
 
-.f6.i.moon-gray[This is not a text analysis workshop.  The foundations of text analysis require considerably more time that we have. This is a demonstration on leveraging the Tidyverse to gather twitter data.]
-
-&lt;div class="footercc"&gt;
-&lt;i class="fab fa-creative-commons"&gt;&lt;/i&gt;&amp;nbsp; &lt;i class="fab fa-creative-commons-by"&gt;&lt;/i&gt;&lt;i class="fab fa-creative-commons-nc"&gt;&lt;/i&gt;  &lt;a href = "https://johnlittle.info"&gt;https://JohnLittle.info&lt;/a&gt;
-&lt;/div&gt;
+.f6.i.moon-gray[This is not a text analysis workshop.  The foundations of text analysis require considerably more time that we have. This is a demonstration on leveraging the following packages to gather twitter data: `tidyverse`, ropensci's `rtweet`, and the `tidytext` ]
 
 --
 
@@ -70,7 +66,7 @@ I would like to take a moment to honor the land in Durham, NC.  Duke University 
 
 &lt;div class="footercc"&gt;
 &lt;i class="fab fa-creative-commons"&gt;&lt;/i&gt;&amp;nbsp; &lt;i class="fab fa-creative-commons-by"&gt;&lt;/i&gt;&lt;i class="fab fa-creative-commons-nc"&gt;&lt;/i&gt;  &lt;a href = "https://JohnLittle.info"&gt;&lt;span class = "opacity30"&gt;https://&lt;/span&gt;JohnLittle&lt;span class = "opacity30"&gt;.info&lt;/span&gt;&lt;/a&gt; 
-&lt;span class = "opacity30"&gt; | &lt;a href="https://github.com/libjohn/workshop_webscraping"&gt;https://github.com/libjohn/workshop_webscraping&lt;/a&gt; | 2021-03-24 &lt;/span&gt;
+&lt;span class = "opacity30"&gt; | &lt;a href="https://github.com/libjohn/workshop_twitter_analysis"&gt;https://github.com/libjohn/workshop_twitter_analysis&lt;/a&gt; | 2021-03-24 &lt;/span&gt;
 &lt;/div&gt;
 
 
@@ -91,11 +87,13 @@ A set of rules and protocols used to build a software application.  In the conte
 
 &lt;div class="footercc"&gt;
 &lt;i class="fab fa-creative-commons"&gt;&lt;/i&gt;&amp;nbsp; &lt;i class="fab fa-creative-commons-by"&gt;&lt;/i&gt;&lt;i class="fab fa-creative-commons-nc"&gt;&lt;/i&gt;  &lt;a href = "https://JohnLittle.info"&gt;&lt;span class = "opacity30"&gt;https://&lt;/span&gt;JohnLittle&lt;span class = "opacity30"&gt;.info&lt;/span&gt;&lt;/a&gt; 
-&lt;span class = "opacity30"&gt; | &lt;a href="https://github.com/libjohn/workshop_webscraping"&gt;https://github.com/libjohn/workshop_webscraping&lt;/a&gt; | 2021-03-24 &lt;/span&gt;
+&lt;span class = "opacity30"&gt; | &lt;a href="https://github.com/libjohn/workshop_twitter_analysis"&gt;https://github.com/libjohn/workshop_twitter_analysis&lt;/a&gt; | 2021-03-24 &lt;/span&gt;
 &lt;/div&gt;
 
 
 
+
+Publish &amp; analyze Tweets, optimize ads, &amp; create unique customer experiences with the Twitter API
 
 - https://developer.twitter.com/en/apply-for-access
 
@@ -108,7 +106,7 @@ A set of rules and protocols used to build a software application.  In the conte
 
 &lt;div class="footercc"&gt;
 &lt;i class="fab fa-creative-commons"&gt;&lt;/i&gt;&amp;nbsp; &lt;i class="fab fa-creative-commons-by"&gt;&lt;/i&gt;&lt;i class="fab fa-creative-commons-nc"&gt;&lt;/i&gt;  &lt;a href = "https://JohnLittle.info"&gt;&lt;span class = "opacity30"&gt;https://&lt;/span&gt;JohnLittle&lt;span class = "opacity30"&gt;.info&lt;/span&gt;&lt;/a&gt; 
-&lt;span class = "opacity30"&gt; | &lt;a href="https://github.com/libjohn/workshop_webscraping"&gt;https://github.com/libjohn/workshop_webscraping&lt;/a&gt; | 2021-03-24 &lt;/span&gt;
+&lt;span class = "opacity30"&gt; | &lt;a href="https://github.com/libjohn/workshop_twitter_analysis"&gt;https://github.com/libjohn/workshop_twitter_analysis&lt;/a&gt; | 2021-03-24 &lt;/span&gt;
 &lt;/div&gt;
 
 
@@ -121,6 +119,10 @@ A set of rules and protocols used to build a software application.  In the conte
 - [Javascript Object Notation](https://en.wikipedia.org/wiki/JSON) is a language-independent data format  
 - Currently the most common data data format for asynchronous client/server communication format  
 - Consists of key-value pairs  
+- Elements of the data model (data structure) are embedded with the data, relative to the data record
+- `jsonlite` package for parsing JSON
+- `rwteet` (specific to the twitter developer API)
+
 ]  
 .pull-right[
 
@@ -170,7 +172,7 @@ JSON record from https://en.wikipedia.org/wiki/JSON
 
 &lt;div class="footercc"&gt;
 &lt;i class="fab fa-creative-commons"&gt;&lt;/i&gt;&amp;nbsp; &lt;i class="fab fa-creative-commons-by"&gt;&lt;/i&gt;&lt;i class="fab fa-creative-commons-nc"&gt;&lt;/i&gt;  &lt;a href = "https://JohnLittle.info"&gt;&lt;span class = "opacity30"&gt;https://&lt;/span&gt;JohnLittle&lt;span class = "opacity30"&gt;.info&lt;/span&gt;&lt;/a&gt; 
-&lt;span class = "opacity30"&gt; | &lt;a href="https://github.com/libjohn/workshop_webscraping"&gt;https://github.com/libjohn/workshop_webscraping&lt;/a&gt; | 2021-03-24 &lt;/span&gt;
+&lt;span class = "opacity30"&gt; | &lt;a href="https://github.com/libjohn/workshop_twitter_analysis"&gt;https://github.com/libjohn/workshop_twitter_analysis&lt;/a&gt; | 2021-03-24 &lt;/span&gt;
 &lt;/div&gt;
 
 
@@ -185,13 +187,13 @@ https://docs.ropensci.org/rtweet/
 - [Intro to rtweet: Collecting Twitter Data](https://docs.ropensci.org/rtweet/articles/intro.html)
 
 ---
-## Text analysis with `tidytext`
+## Text analysis 
 
 
 
 &lt;div class="footercc"&gt;
 &lt;i class="fab fa-creative-commons"&gt;&lt;/i&gt;&amp;nbsp; &lt;i class="fab fa-creative-commons-by"&gt;&lt;/i&gt;&lt;i class="fab fa-creative-commons-nc"&gt;&lt;/i&gt;  &lt;a href = "https://JohnLittle.info"&gt;&lt;span class = "opacity30"&gt;https://&lt;/span&gt;JohnLittle&lt;span class = "opacity30"&gt;.info&lt;/span&gt;&lt;/a&gt; 
-&lt;span class = "opacity30"&gt; | &lt;a href="https://github.com/libjohn/workshop_webscraping"&gt;https://github.com/libjohn/workshop_webscraping&lt;/a&gt; | 2021-03-24 &lt;/span&gt;
+&lt;span class = "opacity30"&gt; | &lt;a href="https://github.com/libjohn/workshop_twitter_analysis"&gt;https://github.com/libjohn/workshop_twitter_analysis&lt;/a&gt; | 2021-03-24 &lt;/span&gt;
 &lt;/div&gt;
 
 
@@ -212,7 +214,7 @@ https://docs.ropensci.org/rtweet/
 
 &lt;div class="footercc"&gt;
 &lt;i class="fab fa-creative-commons"&gt;&lt;/i&gt;&amp;nbsp; &lt;i class="fab fa-creative-commons-by"&gt;&lt;/i&gt;&lt;i class="fab fa-creative-commons-nc"&gt;&lt;/i&gt;  &lt;a href = "https://JohnLittle.info"&gt;&lt;span class = "opacity30"&gt;https://&lt;/span&gt;JohnLittle&lt;span class = "opacity30"&gt;.info&lt;/span&gt;&lt;/a&gt; 
-&lt;span class = "opacity30"&gt; | &lt;a href="https://github.com/libjohn/workshop_webscraping"&gt;https://github.com/libjohn/workshop_webscraping&lt;/a&gt; | 2021-03-24 &lt;/span&gt;
+&lt;span class = "opacity30"&gt; | &lt;a href="https://github.com/libjohn/workshop_twitter_analysis"&gt;https://github.com/libjohn/workshop_twitter_analysis&lt;/a&gt; | 2021-03-24 &lt;/span&gt;
 &lt;/div&gt;
 
 
