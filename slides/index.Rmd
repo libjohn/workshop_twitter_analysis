@@ -69,6 +69,31 @@ A set of rules and protocols used to build a software application.  In the conte
 ![API Schematic](images/api.png "API schematic")
 
 ---
+background-image: url(images/keys6a.jpg)
+background-size: contain
+class: center
+
+
+```{r child="_child-footer.Rmd", include=FALSE}
+```
+
+
+
+## API Keys
+
+Keys are used by the API provider for tracking application usage  
+
+Keep your *Secret Key* to yourself  
+
+
+???
+
+Image credit:  http://www.publicdomainpictures.net/view-image.php?image=167489
+
+
+
+
+---
 ## Twitter Developer Portal
 
 ```{r child="_child-footer.Rmd", include=FALSE}
@@ -164,7 +189,7 @@ https://docs.ropensci.org/rtweet/
 
     - Case study: comparing Twitter archives
     
-- [SCISS Text Analysis curriculum](https://sicss.io/curriculum)
+- [SICSS Text Analysis curriculum](https://sicss.io/curriculum)
 
 ---
 ## Code

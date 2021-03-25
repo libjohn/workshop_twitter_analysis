@@ -4,7 +4,7 @@
     <title>R case study: Twitter data</title>
     <meta charset="utf-8" />
     <meta name="author" content="John Little" />
-    <meta name="date" content="2021-03-24" />
+    <meta name="date" content="2021-03-25" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/tachyons/tachyons.min.css" rel="stylesheet" />
     <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
@@ -18,7 +18,7 @@ class: center, middle, inverse, title-slide
 
 # R case study: Twitter data
 ### John Little
-### 2021-03-24
+### 2021-03-25
 
 ---
 
@@ -39,7 +39,7 @@ I would like to take a moment to honor the land in Durham, NC.  Duke University 
 
 &lt;div class="footercc"&gt;
 &lt;i class="fab fa-creative-commons"&gt;&lt;/i&gt;&amp;nbsp; &lt;i class="fab fa-creative-commons-by"&gt;&lt;/i&gt;&lt;i class="fab fa-creative-commons-nc"&gt;&lt;/i&gt;  &lt;a href = "https://JohnLittle.info"&gt;&lt;span class = "opacity30"&gt;https://&lt;/span&gt;JohnLittle&lt;span class = "opacity30"&gt;.info&lt;/span&gt;&lt;/a&gt; 
-&lt;span class = "opacity30"&gt; | &lt;a href="https://github.com/libjohn/workshop_twitter_analysis"&gt;https://github.com/libjohn/workshop_twitter_analysis&lt;/a&gt; | 2021-03-24 &lt;/span&gt;
+&lt;span class = "opacity30"&gt; | &lt;a href="https://github.com/libjohn/workshop_twitter_analysis"&gt;https://github.com/libjohn/workshop_twitter_analysis&lt;/a&gt; | 2021-03-25 &lt;/span&gt;
 &lt;/div&gt;
 
 
@@ -51,7 +51,7 @@ I would like to take a moment to honor the land in Durham, NC.  Duke University 
 - Point out useful documentation / resources 
 
 
-.f6.i.moon-gray[This is not a text analysis workshop.  The foundations of text analysis require considerably more time that we have. This is a demonstration on leveraging the following packages to gather twitter data: `tidyverse`, ropensci's `rtweet`, and  `tidytext` ]
+.f6.i.moon-gray[This is not a text analysis workshop.  The foundations of text analysis require considerably more time that we have. This is a demonstration on leveraging the following packages to gather twitter data: `tidyverse`, ropensci's `rtweet`, and  `tidytext`.  ]
 
 --
 
@@ -66,7 +66,7 @@ I would like to take a moment to honor the land in Durham, NC.  Duke University 
 
 &lt;div class="footercc"&gt;
 &lt;i class="fab fa-creative-commons"&gt;&lt;/i&gt;&amp;nbsp; &lt;i class="fab fa-creative-commons-by"&gt;&lt;/i&gt;&lt;i class="fab fa-creative-commons-nc"&gt;&lt;/i&gt;  &lt;a href = "https://JohnLittle.info"&gt;&lt;span class = "opacity30"&gt;https://&lt;/span&gt;JohnLittle&lt;span class = "opacity30"&gt;.info&lt;/span&gt;&lt;/a&gt; 
-&lt;span class = "opacity30"&gt; | &lt;a href="https://github.com/libjohn/workshop_twitter_analysis"&gt;https://github.com/libjohn/workshop_twitter_analysis&lt;/a&gt; | 2021-03-24 &lt;/span&gt;
+&lt;span class = "opacity30"&gt; | &lt;a href="https://github.com/libjohn/workshop_twitter_analysis"&gt;https://github.com/libjohn/workshop_twitter_analysis&lt;/a&gt; | 2021-03-25 &lt;/span&gt;
 &lt;/div&gt;
 
 
@@ -81,13 +81,45 @@ A set of rules and protocols used to build a software application.  In the conte
 ![API Schematic](images/api.png "API schematic")
 
 ---
+background-image: url(images/keys6a.jpg)
+background-size: contain
+class: center
+
+
+
+
+&lt;div class="footercc"&gt;
+&lt;i class="fab fa-creative-commons"&gt;&lt;/i&gt;&amp;nbsp; &lt;i class="fab fa-creative-commons-by"&gt;&lt;/i&gt;&lt;i class="fab fa-creative-commons-nc"&gt;&lt;/i&gt;  &lt;a href = "https://JohnLittle.info"&gt;&lt;span class = "opacity30"&gt;https://&lt;/span&gt;JohnLittle&lt;span class = "opacity30"&gt;.info&lt;/span&gt;&lt;/a&gt; 
+&lt;span class = "opacity30"&gt; | &lt;a href="https://github.com/libjohn/workshop_twitter_analysis"&gt;https://github.com/libjohn/workshop_twitter_analysis&lt;/a&gt; | 2021-03-25 &lt;/span&gt;
+&lt;/div&gt;
+
+
+
+
+
+
+## API Keys
+
+Keys are used by the API provider for tracking application usage  
+
+Keep your *Secret Key* to yourself  
+
+
+???
+
+Image credit:  http://www.publicdomainpictures.net/view-image.php?image=167489
+
+
+
+
+---
 ## Twitter Developer Portal
 
 
 
 &lt;div class="footercc"&gt;
 &lt;i class="fab fa-creative-commons"&gt;&lt;/i&gt;&amp;nbsp; &lt;i class="fab fa-creative-commons-by"&gt;&lt;/i&gt;&lt;i class="fab fa-creative-commons-nc"&gt;&lt;/i&gt;  &lt;a href = "https://JohnLittle.info"&gt;&lt;span class = "opacity30"&gt;https://&lt;/span&gt;JohnLittle&lt;span class = "opacity30"&gt;.info&lt;/span&gt;&lt;/a&gt; 
-&lt;span class = "opacity30"&gt; | &lt;a href="https://github.com/libjohn/workshop_twitter_analysis"&gt;https://github.com/libjohn/workshop_twitter_analysis&lt;/a&gt; | 2021-03-24 &lt;/span&gt;
+&lt;span class = "opacity30"&gt; | &lt;a href="https://github.com/libjohn/workshop_twitter_analysis"&gt;https://github.com/libjohn/workshop_twitter_analysis&lt;/a&gt; | 2021-03-25 &lt;/span&gt;
 &lt;/div&gt;
 
 
@@ -106,7 +138,7 @@ Publish &amp; analyze Tweets, optimize ads, &amp; create unique customer experie
 
 &lt;div class="footercc"&gt;
 &lt;i class="fab fa-creative-commons"&gt;&lt;/i&gt;&amp;nbsp; &lt;i class="fab fa-creative-commons-by"&gt;&lt;/i&gt;&lt;i class="fab fa-creative-commons-nc"&gt;&lt;/i&gt;  &lt;a href = "https://JohnLittle.info"&gt;&lt;span class = "opacity30"&gt;https://&lt;/span&gt;JohnLittle&lt;span class = "opacity30"&gt;.info&lt;/span&gt;&lt;/a&gt; 
-&lt;span class = "opacity30"&gt; | &lt;a href="https://github.com/libjohn/workshop_twitter_analysis"&gt;https://github.com/libjohn/workshop_twitter_analysis&lt;/a&gt; | 2021-03-24 &lt;/span&gt;
+&lt;span class = "opacity30"&gt; | &lt;a href="https://github.com/libjohn/workshop_twitter_analysis"&gt;https://github.com/libjohn/workshop_twitter_analysis&lt;/a&gt; | 2021-03-25 &lt;/span&gt;
 &lt;/div&gt;
 
 
@@ -172,7 +204,7 @@ JSON record from https://en.wikipedia.org/wiki/JSON
 
 &lt;div class="footercc"&gt;
 &lt;i class="fab fa-creative-commons"&gt;&lt;/i&gt;&amp;nbsp; &lt;i class="fab fa-creative-commons-by"&gt;&lt;/i&gt;&lt;i class="fab fa-creative-commons-nc"&gt;&lt;/i&gt;  &lt;a href = "https://JohnLittle.info"&gt;&lt;span class = "opacity30"&gt;https://&lt;/span&gt;JohnLittle&lt;span class = "opacity30"&gt;.info&lt;/span&gt;&lt;/a&gt; 
-&lt;span class = "opacity30"&gt; | &lt;a href="https://github.com/libjohn/workshop_twitter_analysis"&gt;https://github.com/libjohn/workshop_twitter_analysis&lt;/a&gt; | 2021-03-24 &lt;/span&gt;
+&lt;span class = "opacity30"&gt; | &lt;a href="https://github.com/libjohn/workshop_twitter_analysis"&gt;https://github.com/libjohn/workshop_twitter_analysis&lt;/a&gt; | 2021-03-25 &lt;/span&gt;
 &lt;/div&gt;
 
 
@@ -193,7 +225,7 @@ https://docs.ropensci.org/rtweet/
 
 &lt;div class="footercc"&gt;
 &lt;i class="fab fa-creative-commons"&gt;&lt;/i&gt;&amp;nbsp; &lt;i class="fab fa-creative-commons-by"&gt;&lt;/i&gt;&lt;i class="fab fa-creative-commons-nc"&gt;&lt;/i&gt;  &lt;a href = "https://JohnLittle.info"&gt;&lt;span class = "opacity30"&gt;https://&lt;/span&gt;JohnLittle&lt;span class = "opacity30"&gt;.info&lt;/span&gt;&lt;/a&gt; 
-&lt;span class = "opacity30"&gt; | &lt;a href="https://github.com/libjohn/workshop_twitter_analysis"&gt;https://github.com/libjohn/workshop_twitter_analysis&lt;/a&gt; | 2021-03-24 &lt;/span&gt;
+&lt;span class = "opacity30"&gt; | &lt;a href="https://github.com/libjohn/workshop_twitter_analysis"&gt;https://github.com/libjohn/workshop_twitter_analysis&lt;/a&gt; | 2021-03-25 &lt;/span&gt;
 &lt;/div&gt;
 
 
@@ -205,7 +237,7 @@ https://docs.ropensci.org/rtweet/
 
     - Case study: comparing Twitter archives
     
-- [SCISS Text Analysis curriculum](https://sicss.io/curriculum)
+- [SICSS Text Analysis curriculum](https://sicss.io/curriculum)
 
 ---
 ## Code
@@ -214,7 +246,7 @@ https://docs.ropensci.org/rtweet/
 
 &lt;div class="footercc"&gt;
 &lt;i class="fab fa-creative-commons"&gt;&lt;/i&gt;&amp;nbsp; &lt;i class="fab fa-creative-commons-by"&gt;&lt;/i&gt;&lt;i class="fab fa-creative-commons-nc"&gt;&lt;/i&gt;  &lt;a href = "https://JohnLittle.info"&gt;&lt;span class = "opacity30"&gt;https://&lt;/span&gt;JohnLittle&lt;span class = "opacity30"&gt;.info&lt;/span&gt;&lt;/a&gt; 
-&lt;span class = "opacity30"&gt; | &lt;a href="https://github.com/libjohn/workshop_twitter_analysis"&gt;https://github.com/libjohn/workshop_twitter_analysis&lt;/a&gt; | 2021-03-24 &lt;/span&gt;
+&lt;span class = "opacity30"&gt; | &lt;a href="https://github.com/libjohn/workshop_twitter_analysis"&gt;https://github.com/libjohn/workshop_twitter_analysis&lt;/a&gt; | 2021-03-25 &lt;/span&gt;
 &lt;/div&gt;
 
 
