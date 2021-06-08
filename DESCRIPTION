@@ -1,0 +1,40 @@
+Type: Compendium
+Package: Compendium title
+Title: rtweet for twitter data
+Version: 1.1.0
+Authors@R: 
+    person(given = "John",
+           family = "Little",
+           role = c("aut", "cre"),
+           email = "John.Little@Duke.edu")
+Description: Case study: gather and analyze tweets using rtweet
+License: CC BY-NC
+Depends: 
+    colorblindr,
+    dplyr,
+    ggmap,
+    ggplot2,
+    ggrepel,
+    glue,
+    graphTweets,
+    hrbrthemes,
+    htmltools,
+    igraph,
+    knitr,
+    leaflet,
+    networkD3,
+    RColorBrewer,
+    rmarkdown,
+    rtweet,
+    scales,
+    tidygeocoder,
+    tidytext,
+    tidyverse,
+    wordcloud2,
+    xaringan,
+    xaringanExtra
+Remotes: 
+    clauswilke/colorblindr,
+    gadenbuie/xaringanExtra
+Encoding: UTF-8
+LazyData: true
