@@ -12,7 +12,7 @@ John Little
 Badge](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 
 [![Launch Rstudio
-Binder](http://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/libjohn/workshop_twitter_analysis/master?urlpath=rstudio)
+Binder](http://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/libjohn/workshop_twitter_analysis/main?urlpath=rstudio)
 <!-- badges: end -->
 
 ## rtweet for twitter data
