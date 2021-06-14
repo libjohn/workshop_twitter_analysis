@@ -10,7 +10,7 @@ Authors@R:
            comment = c(ORCID = "0000-0002-3600-0972")
 Description: Case study: gather and analyze tweets using rtweet
 License: CC BY-NC
-URL: https://github.com/libjohn/rfun_flipped
+URL: https://github.com/libjohn/workshop_twitter_analysis
 Depends: 
     colorblindr,
     dplyr,
