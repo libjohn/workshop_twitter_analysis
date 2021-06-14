@@ -6,9 +6,11 @@ Authors@R:
     person(given = "John",
            family = "Little",
            role = c("aut", "cre"),
-           email = "John.Little@Duke.edu")
+           email = "John.Little@Duke.edu",
+           comment = c(ORCID = "0000-0002-3600-0972")
 Description: Case study: gather and analyze tweets using rtweet
 License: CC BY-NC
+URL: https://github.com/libjohn/rfun_flipped
 Depends: 
     colorblindr,
     dplyr,

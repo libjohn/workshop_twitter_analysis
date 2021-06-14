@@ -1,0 +1,22 @@
+install.packages(
+  "tidyverse",
+  "remotes",
+  "knitr",
+  "rmarkdown",
+  "rtweet",
+  "xaringan",
+  "ggrepel",
+  "graphTweets",
+  "hrbrthemes",
+  "htmltools",
+  "igraph",
+  "leaflet",
+  "networkD3",
+  "RColorBrewer",
+  "tidygeocoder",
+  "tidytext",
+  "wordcloud2"
+)
+remotes::install_github("clauswilke/colorblindr")
+remotes::install_github("lchiffon/wordcloud2")
+remotes::install_github("gadenbuie/xaringanExtra")
