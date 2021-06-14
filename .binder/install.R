@@ -1,4 +1,4 @@
-install.packages(
+install.packages(c(
   "tidyverse",
   "remotes",
   "knitr",
@@ -16,7 +16,7 @@ install.packages(
   "tidygeocoder",
   "tidytext",
   "wordcloud2"
-)
+))
 remotes::install_github("clauswilke/colorblindr")
 remotes::install_github("lchiffon/wordcloud2")
 remotes::install_github("gadenbuie/xaringanExtra")
