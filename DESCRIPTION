@@ -1,7 +1,7 @@
 Type: Compendium
 Package: R workshop for rtweet and twitter data
 Title: Twitter analysis with rtweet, a case study
-Version: 1.1.0
+Version: 1.1.2
 Authors@R: 
     person(given = "John",
            family = "Little",
